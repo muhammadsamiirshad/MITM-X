@@ -1,0 +1,44 @@
+{
+    "interface": "eth0",
+    "gateway": "192.168.1.1",
+    "dns_server": "8.8.8.8",
+    "dashboard_port": 5000,
+    "proxy_port": 8080,
+    "log_level": "INFO",
+    "arp_spoof": {
+        "enabled": false,
+        "target_ip": "",
+        "gateway_ip": "",
+        "interface": "eth0"
+    },
+    "dns_spoof": {
+        "enabled": false,
+        "domains": {},
+        "redirect_ip": ""
+    },
+    "packet_sniffer": {
+        "enabled": false,
+        "interface": "eth0",
+        "log_file": "logs/packets.log"
+    },
+    "ssl_strip": {
+        "enabled": false,
+        "port": 8080,
+        "hsts_bypass": true
+    },
+    "payload_injector": {
+        "enabled": false,
+        "port": 8080,
+        "payload_file": "payloads/default.js"
+    },
+    "web_cloner": {
+        "enabled": false,
+        "output_dir": "cloned_sites/",
+        "server_port": 8000
+    },
+    "dashboard": {
+        "enabled": true,
+        "port": 5000,
+        "host": "0.0.0.0"
+    }
+}

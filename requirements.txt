@@ -1,0 +1,11 @@
+scapy==2.5.0
+netfilterqueue==1.1.0
+dnslib==0.9.23
+flask==2.3.3
+beautifulsoup4==4.12.2
+requests==2.31.0
+mitmproxy==10.1.1
+websockets==11.0.3
+colorama==0.4.6
+psutil==5.9.5
+pycryptodome==3.18.0
