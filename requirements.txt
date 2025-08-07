@@ -1,11 +1,23 @@
+# MITM-X Framework Requirements
+# Install in virtual environment: pip install -r requirements.txt
+
+# Core networking libraries
 scapy==2.5.0
-netfilterqueue==1.1.0
+requests==2.31.0
+
+# Linux-specific (may fail on Windows - that's OK)
+netfilterqueue==1.1.0; sys_platform == "linux"
 dnslib==0.9.23
+
+# Web framework and parsing
 flask==2.3.3
 beautifulsoup4==4.12.2
-requests==2.31.0
+
+# Proxy and WebSocket support
 mitmproxy==10.1.1
 websockets==11.0.3
+
+# Utilities
 colorama==0.4.6
 psutil==5.9.5
 pycryptodome==3.18.0

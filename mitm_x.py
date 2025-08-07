@@ -13,6 +13,48 @@ import threading
 import argparse
 import logging
 from datetime import datetime
+from pathlib import Path
+
+# Check if running in virtual environment
+def check_virtual_environment():
+    """Check if running in virtual environment and load config"""
+    project_root = Path(__file__).parent.absolute()
+    config_path = project_root / "config" / "settings.json"
+    
+    # Load configuration
+    try:
+        with open(config_path, 'r') as f:
+            config = json.load(f)
+        
+        if config.get('virtual_env', {}).get('enabled', False):
+            venv_python = config['virtual_env']['python_executable']
+            current_python = sys.executable
+            
+            # Check if we're using the correct Python executable
+            if not Path(current_python).samefp(Path(venv_python)):
+                print(f"⚠️  Warning: Not running in virtual environment!")
+                print(f"Expected: {venv_python}")
+                print(f"Current:  {current_python}")
+                print(f"\nTo activate virtual environment:")
+                
+                if os.name == 'nt':  # Windows
+                    print("   Option 1: Double-click 'activate_mitm.bat'")
+                    print("   Option 2: Run 'activate_mitm.ps1' in PowerShell")
+                else:  # Linux
+                    print("   Option 1: ./activate_mitm.sh")
+                    print("   Option 2: source venv/bin/activate")
+                
+                print(f"\nThen run: python {__file__}")
+                return False
+        
+        return True
+    except Exception as e:
+        print(f"Warning: Could not load configuration: {e}")
+        return True
+
+# Check virtual environment before continuing
+if not check_virtual_environment():
+    sys.exit(1)
 
 # Add modules directory to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'modules'))
